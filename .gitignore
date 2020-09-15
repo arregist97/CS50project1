@@ -1,0 +1,7 @@
+wiki/db.sqlite3
+wiki/encyclopedia/__pycache__/
+wiki/encyclopedia/migrations/__pycache__/
+wiki/wiki/__pycache__/
+wiki/newpage/__pycache__/
+wiki/newpage/migrations/__pycache__/
+
