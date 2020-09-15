@@ -17,5 +17,8 @@ def css(request):
     #return render(request, "encyclopedia/index.html", {
     #    "entries": util.list_entries()
     #})
-    return HttpResponse(markdowner.convert(csspage))
+    #return HttpResponse(markdowner.convert(csspage))
+    return render(request, "encyclopedia/entry.html", {
+        "markdown": "yyy"
+    })
 
