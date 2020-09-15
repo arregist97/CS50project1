@@ -23,13 +23,15 @@ def css(request):
 #        "text": "hi"
 #    })'''
     return render(request, "encyclopedia/entry.html", {
-        "text": body
+        "text": body, 
+        "title":"CSS"
     })
 def page(request, entry):
     markdowner = Markdown()
     mdpage = util.get_entry(entry)
     body = markdowner.convert(mdpage)
     return render(request, "encyclopedia/entry.html", {
-        "text": body
+        "text": body, 
+        "title": entry
     })
 

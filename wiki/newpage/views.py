@@ -1,6 +1,8 @@
 from django import forms
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from encyclopedia import util
 
 class NewTaskForm(forms.Form):
@@ -17,7 +19,9 @@ def index(request):
             if util.get_entry(title) == None:
                 entry = form.cleaned_data["entry"]
                 #write entry to md file
-                return HttpResponse("Success:" + title + "<br>" + "<a href=" + "/" + ">Home</a>")
+                util.save_entry(title, entry)
+                #return HttpResponse("Success:" + title + "<br>" + "<a href=" + "/" + ">Home</a>")
+                return HttpResponseRedirect("/wiki/"+title)
             else:
                 return HttpResponse("Error:" + title + " already exists<br>" + "<a href=" + "/" + ">Home</a>")
         else:
