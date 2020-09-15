@@ -14,7 +14,7 @@ def index(request):
             title = form.cleaned_data["title"]
             entry = form.cleaned_data["entry"]
 #            return HttpResponseRedirect(reverse("tasks:index"))
-            return HttpResponse("Success:" + title + "<br>" + entry)
+            return HttpResponse("Success:" + title + "<br>" + "<a href=" + "/" + ">Home</a>")
         else:
             return render(request, "tasks/add.html", {
                 "form": form
