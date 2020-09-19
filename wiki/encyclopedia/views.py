@@ -9,6 +9,7 @@ from . import util
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
+        "title": "All Pages",
         "entries": util.list_entries()
     })
 def css(request):
@@ -30,6 +31,8 @@ def css(request):
 def page(request, entry):
     markdowner = Markdown()
     mdpage = util.get_entry(entry)
+    if (mdpage == None):
+        return HttpResponse("No matches found for " + entry + ".<br>" + "<a href=" + "/" + ">Home</a>")
     body = markdowner.convert(mdpage)
     return render(request, "encyclopedia/entry.html", {
         "text": body, 
@@ -49,7 +52,7 @@ def search(request):
         #render matches
         if(len(matches) == 0):
             return HttpResponse("No matches found for " + query + ".<br>" + "<a href=" + "/" + ">Home</a>")
-        elif(len(matches) == 1):
+        elif(matches[0].lower() == query.lower()):
             markdowner = Markdown()
             mdpage = util.get_entry(matches[0])
             body = markdowner.convert(mdpage)
@@ -59,6 +62,7 @@ def search(request):
         })
         else:
             return render(request, "encyclopedia/index.html", {
+                "title": "Results for '" + query + "'",
                 "entries": matches
             })
 
