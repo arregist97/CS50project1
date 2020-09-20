@@ -44,10 +44,7 @@ def search(request):
             markdowner = Markdown()
             mdpage = util.get_entry(matches[0])
             body = markdowner.convert(mdpage)
-            return render(request, "encyclopedia/entry.html", {
-                "text": body, 
-                "title": matches[0]
-        })
+            return redirect("/wiki/" + matches[0])
         else:
             return render(request, "encyclopedia/index.html", {
                 "title": "Results for '" + query + "'",
