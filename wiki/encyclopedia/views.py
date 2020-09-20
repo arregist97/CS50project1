@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from markdown2 import Markdown
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import redirect
+from random import randrange
 
 #python manage.py runserver
 from . import util
@@ -11,22 +15,6 @@ def index(request):
     return render(request, "encyclopedia/index.html", {
         "title": "All Pages",
         "entries": util.list_entries()
-    })
-def css(request):
-    markdowner = Markdown()
-    csspage = util.get_entry("CSS")
-    body = markdowner.convert(csspage)
-    #markdowner.convert(fileReader.read)
-    #return render(request, "encyclopedia/index.html", {
-    #    "entries": util.list_entries()
-    #})
-    #return HttpResponse('{% extends "encyclopedia/layout.html" %}{% block title %}' + body + '{% endblock %}')
-#    return render(request, "encyclopedia/entry.html", {
-#        "text": "hi"
-#    })'''
-    return render(request, "encyclopedia/entry.html", {
-        "text": body, 
-        "title":"CSS"
     })
 def page(request, entry):
     markdowner = Markdown()
@@ -65,4 +53,9 @@ def search(request):
                 "title": "Results for '" + query + "'",
                 "entries": matches
             })
+def randompage(request):
+    entries = util.list_entries()
+    randomVal= randrange(len(entries))
+    return redirect("/wiki/" + entries[randomVal])
+
 
